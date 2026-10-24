@@ -1,6 +1,0 @@
-export * from './ActivityIndicator'
-export * from './Button'
-export * from './Image'
-export * from './Layout'
-export * from './Tabs'
-export * from './Text'

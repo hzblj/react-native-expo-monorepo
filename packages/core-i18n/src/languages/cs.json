@@ -1,0 +1,13 @@
+{
+  "general": {
+    "home": "Domů",
+    "no": "Ne",
+    "yes": "Ano"
+  },
+  "screens": {
+    "onboarding": {
+      "start": "Začít",
+      "title": "Vítejte v aplikaci"
+    }
+  }
+}

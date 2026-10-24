@@ -1,42 +1,28 @@
 {
   "extends": "expo/tsconfig.base",
+  // Ambient globals for every package that extends this config. Declared as `files` rather than
+  // repeated in each package's `include`: a derived config overrides `include` but inherits
+  // `files`, and the paths resolve against this file. `native-icons.d.ts` is written by the Kara
+  // config plugin from `packages/core-resources/icons` whenever the app config is read.
+  "files": ["./types/globals.d.ts", "./types/native-icons.d.ts"],
   "compilerOptions": {
-    "module": "esnext",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
-    "jsx": "react-native",
     "allowJs": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "baseUrl": "./packages",
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "strictNullChecks": true,
-    "alwaysStrict": true,
-    "noImplicitAny":  true,
-    "noImplicitThis":  true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes":  true,
-    "strictPropertyInitialization": true,
-    "target": "es6",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    // No `baseUrl` — deprecated in TS 6. Paths declared here resolve relative to this file.
     "paths": {
-      "~/*": ["./*"],
-      "~/core.ui": ["./core-ui"],
-      "~/core.themes": ["./core-themes"],
-      "~/core.utils": ["./core-utils"],
-      "~/core.hooks": ["./core-hooks"],
-      "~/core.i18n": ["./core-i18n"],
-      "~/core.store": ["./core-store"],
-      "~/core.config": ["./core-config"],
-      "~/core.services": ["./core-services"],
-      "~/core.resources/*": ["./core-resources/*"]
+      "~/*": ["./packages/*"],
+      "~/core.ui": ["./packages/core-ui"],
+      "~/core.hooks": ["./packages/core-hooks"],
+      "~/core.i18n": ["./packages/core-i18n"],
+      "~/core.store": ["./packages/core-store"],
+      "~/core.config": ["./packages/core-config"],
+      "~/core.services": ["./packages/core-services"],
+      "~/core.resources/*": ["./packages/core-resources/*"]
     }
   }
 }
-

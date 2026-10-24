@@ -1,0 +1,89 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "extends": ["@hzblj/biome-config", "@hzblj/biome-config/react-native"],
+  "files": {
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.expo",
+      "!**/.turbo",
+      "!**/android",
+      "!**/ios",
+      "!**/build",
+      "!**/dist",
+      "!**/*.generated.*",
+      "!**/expo-env.d.ts",
+      "!types/native-icons.d.ts"
+    ]
+  },
+  "linter": {
+    "rules": {
+      "style": {
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "paths": {
+              "@hzblj/kara-ui": "Kara is reached through ~/core.ui, which is where the app's own components live beside it.",
+              "@hzblj/kara-ui/router": "Kara is reached through ~/core.ui, which is where the app's own components live beside it.",
+              "@hzblj/kara-ui/swift-ui": "Raw SwiftUI views belong to packages/core-ui. Build the component there.",
+              "@hzblj/kara-ui/jetpack-compose": "Raw Compose views belong to packages/core-ui. Build the component there.",
+              "@expo/ui": "@expo/ui belongs to packages/core-ui. Build the component there.",
+              "@expo/ui/swift-ui": "@expo/ui belongs to packages/core-ui. Build the component there.",
+              "@expo/ui/jetpack-compose": "@expo/ui belongs to packages/core-ui. Build the component there.",
+              "react-native-nitro-fetch": "Network calls go through Fetcher in ~/core.services."
+            }
+          }
+        }
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/core-ui/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "react-native-nitro-fetch": "Network calls go through Fetcher in ~/core.services."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/core-services/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/babel.config.js", "**/metro.config.js"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noCommonJs": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/core-services/src/Logger/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
+    }
+  ]
+}

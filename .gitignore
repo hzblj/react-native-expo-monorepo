@@ -11,6 +11,14 @@
 /node_modules/
 **/node_modules/
 
+# Yarn (node-modules linker — only the release/plugins are committed)
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.pnp.*
+
 # Expo
 .expo/*
 .expo
@@ -50,6 +58,9 @@ build
 build/*
 *.build
 .index.build
+
+# Env (EXPO_PUBLIC_STAGE comes from the scripts and eas.json, never from a committed file)
+.env*
 
 # misc
 /.sass-cache

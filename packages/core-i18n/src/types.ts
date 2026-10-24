@@ -1,4 +1,5 @@
 export const localizationLanguages = {
+  CS: 'cs',
   EN: 'en',
 } as const
 

@@ -4,11 +4,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "lint": "concurrently \"yarn eslint:check\" \"yarn tsc:check\" \"yarn pretty:check\"",
-    "lint:fix": "eslint --fix \"./**/*.{ts,tsx}\"",
-    "pretty:check": "prettier -l \"src/**/*.ts*\"",
-    "tsc:check": "tsc --project ./tsconfig.json",
-    "eslint:check": "eslint \"*/**/*.{ts,tsx}\"",
-    "loco:pull": "ts-node -T ../../scripts/pull-loco.js"
+    "lint": "yarn run -T concurrently \"yarn biome:check\" \"yarn tsc:check\"",
+    "lint:fix": "yarn run -T biome check --write .",
+    "biome:check": "yarn run -T biome check .",
+    "tsc:check": "yarn run -T tsc --project ./tsconfig.json"
   }
 }

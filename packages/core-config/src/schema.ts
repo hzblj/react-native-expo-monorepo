@@ -6,10 +6,12 @@ const schema = z.object({
 
 export type Config = z.infer<typeof schema>
 
+export type Stage = Config['STAGE']
+
 export const validateSchema = (inputs: unknown): Config => {
   try {
     return schema.parse(inputs)
   } catch (_) {
-    throw new Error('Missing .env.local file or invalid config schema')
+    throw new Error('Missing or invalid EXPO_PUBLIC_STAGE — check .env or the EAS build profile')
   }
 }
