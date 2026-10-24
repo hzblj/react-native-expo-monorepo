@@ -112,6 +112,10 @@ via `expo-localization`, falling back to English.
 Biome (`@hzblj/biome-config` + its React Native preset): 2-space indent, 120 columns, single quotes, no semicolons,
 sorted imports and object keys. TypeScript strict, named exports, `type` over `interface`.
 
+## More libraries
+
+The other libraries from the same author are at **[libraries.janblazej.dev](https://www.libraries.janblazej.dev)**.
+
 ## License
 
 MIT.
