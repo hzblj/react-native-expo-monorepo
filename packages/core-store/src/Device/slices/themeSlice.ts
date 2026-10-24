@@ -1,9 +1,9 @@
 import {CreateThemeSlice} from '../types'
 
 export const themeSlice: CreateThemeSlice = set => ({
-  setTheme: theme =>
+  setThemePreference: preference =>
     set(draft => {
-      draft.theme = theme
+      draft.themePreference = preference
     }),
-  theme: null,
+  themePreference: 'system',
 })

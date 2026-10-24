@@ -1,10 +1,15 @@
 import {ExpoConfig} from 'expo/config'
-const ExpoPlugins = require('../../plugins/expo-plugins')
+
+/**
+ * Expo transpiles this file on its own and infers CommonJS from the emitted code. Type-only imports
+ * are erased, so they keep it CommonJS — a value `import` would flip it to ESM, where importing JSON
+ * needs an import attribute. Hence the `require` for the version.
+ */
 const packageJson = require('./package.json')
 
 type Stage = 'development' | 'preview' | 'production'
 
-const STAGE = (process.env.STAGE ?? 'production') as Stage
+const STAGE = (process.env.EXPO_PUBLIC_STAGE ?? 'production') as Stage
 const APP_NAME = 'Expo demo'
 const SCHEME = 'com.expo.demo'
 const SPLASH_BACKGROUND_LIGHT = '#ffffff'
@@ -58,7 +63,6 @@ export default {
       foregroundImage: config.foregroundImage,
       monochromeImage: config.foregroundImage,
     },
-    edgeToEdgeEnabled: true,
     package: config.scheme,
   },
   experiments: {
@@ -72,13 +76,24 @@ export default {
       light: config.icon,
       tinted: config.tinted,
     },
+    infoPlist: {
+      CADisableMinimumFrameDurationOnPhone: true,
+    },
     supportsTablet: false,
   },
   name: 'expo-demo',
-  newArchEnabled: true,
   orientation: 'portrait',
   plugins: [
     'expo-router',
+    'expo-localization',
+    'expo-image',
+    // The app's icons: every SVG in core-resources/icons becomes an iOS asset-catalog image and an Android vector
+    // drawable at prebuild, and its name a type in types/native-icons.d.ts.
+    [
+      '@hzblj/kara-ui',
+      {icons: {source: '../../packages/core-resources/icons', types: '../../types/native-icons.d.ts'}},
+    ],
+    'react-native-nitro-fetch',
     [
       'expo-splash-screen',
       {
@@ -92,7 +107,6 @@ export default {
         resizeMode: 'contain',
       },
     ],
-    ['react-native-bottom-tabs'],
     [
       'expo-build-properties',
       {
@@ -102,7 +116,7 @@ export default {
       },
     ],
     [
-      ExpoPlugins.iosAddPods,
+      'core-expo-plugins/ios-add-pods',
       {
         modules: [
           {
@@ -112,9 +126,9 @@ export default {
         ],
       },
     ],
-    [ExpoPlugins.androidMainApplication],
+    'core-expo-plugins/android-main-application',
     [
-      ExpoPlugins.androidAppBuildGradle,
+      'core-expo-plugins/android-app-build-gradle',
       {
         implementations: [
           'implementation("io.insert-koin:koin-core")',
@@ -124,7 +138,7 @@ export default {
       },
     ],
     [
-      ExpoPlugins.androidSettingsGradle,
+      'core-expo-plugins/android-settings-gradle',
       {
         modules: [
           {

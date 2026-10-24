@@ -1,9 +1,9 @@
 import {Image} from 'expo-image'
 import {useCallback, useEffect, useRef} from 'react'
-import {AppState as RNAppState, AppStateStatus} from 'react-native'
+import {AppState as RNAppState} from 'react-native'
 
 import {Logger} from '~/core.services'
-import {useDeviceStore} from '~/core.store'
+import {type AppStateStatus, useDeviceStore} from '~/core.store'
 
 export const useAppState = () => {
   const appState = useRef(RNAppState.currentState)

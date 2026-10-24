@@ -1,25 +1,30 @@
-import {ThemeProvider as RNThemeProvider} from '@react-navigation/native'
-import {FC, ReactNode, useMemo} from 'react'
-import {useColorScheme} from 'react-native'
-import {ThemeProvider as StyledThemeProvider} from 'styled-components'
+import {ThemeProvider as RNThemeProvider} from 'expo-router'
+import {type FC, type ReactNode, useMemo} from 'react'
 
-import {appThemes, reactNavigationTheme, ThemeVariants} from '~/core.themes'
-
-const FALLBACK_THEME_VARIANT: ThemeVariants = 'light'
+import {useDeviceStore} from '~/core.store'
+import {KaraProvider, navigationTheme, useAppTheme} from '~/core.ui'
 
 export interface ThemePros {
   children: ReactNode
 }
 
-export const ThemeProviders: FC<ThemePros> = ({children}) => {
-  const colorScheme = useColorScheme()
-  const variant = colorScheme ?? FALLBACK_THEME_VARIANT
+/**
+ * Sits *inside* `KaraProvider` so it maps the same `Theme` everything else sees: the system half of the palette is
+ * resolved there, and a navigation theme built outside it would have nothing to resolve a system token into.
+ */
+const NavigationTheme: FC<ThemePros> = ({children}) => {
+  const theme = useAppTheme()
+  const value = useMemo(() => navigationTheme(theme), [theme])
 
-  const theme = useMemo(() => (variant ? appThemes[variant] : appThemes[FALLBACK_THEME_VARIANT]), [variant])
+  return <RNThemeProvider value={value}>{children}</RNThemeProvider>
+}
+
+export const ThemeProviders: FC<ThemePros> = ({children}) => {
+  const themePreference = useDeviceStore.use.themePreference()
 
   return (
-    <StyledThemeProvider theme={theme}>
-      <RNThemeProvider value={reactNavigationTheme(theme)}>{children}</RNThemeProvider>
-    </StyledThemeProvider>
+    <KaraProvider themePreference={themePreference}>
+      <NavigationTheme>{children}</NavigationTheme>
+    </KaraProvider>
   )
 }

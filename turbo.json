@@ -7,6 +7,12 @@
     },
     "lint:fix": {
       "outputs": []
+    },
+    "tsc:check": {
+      "outputs": []
+    },
+    "biome:check": {
+      "outputs": []
     }
   }
 }

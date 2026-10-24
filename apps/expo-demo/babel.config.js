@@ -7,7 +7,7 @@ module.exports = function (api) {
         plugins: ['transform-remove-console'],
       },
     },
-    plugins: ['react-native-reanimated/plugin'],
+    // babel-preset-expo auto-injects react-native-worklets/plugin (Reanimated 4) when installed.
     presets: [['babel-preset-expo', {jsxRuntime: 'automatic'}]],
   }
 }

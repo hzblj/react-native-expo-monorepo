@@ -1,9 +1,6 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const extraNodeModules = require('node-libs-react-native')
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const {getDefaultConfig} = require('expo/metro-config')
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require('path')
 
 const config = getDefaultConfig(__dirname)

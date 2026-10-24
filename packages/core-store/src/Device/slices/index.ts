@@ -1,3 +1,7 @@
+export * from './applicationSlice'
 export * from './appStateSlice'
+export * from './hardwareSlice'
+export * from './installationSlice'
+export * from './localeSlice'
 export * from './networkSlice'
 export * from './themeSlice'

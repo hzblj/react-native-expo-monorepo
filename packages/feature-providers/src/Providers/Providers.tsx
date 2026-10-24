@@ -3,7 +3,7 @@ import {I18nextProvider} from 'react-i18next'
 import {GestureHandlerRootView} from 'react-native-gesture-handler'
 import {SafeAreaProvider as SafeArea} from 'react-native-safe-area-context'
 
-import {useAppState, useOnlineManager} from '~/core.hooks'
+import {useAppState, useDeviceInfo, useOnlineManager} from '~/core.hooks'
 import {i18n} from '~/core.i18n'
 
 import {ThemeProviders} from './ThemeProvider'
@@ -15,6 +15,7 @@ export interface ProvidersProps {
 export const Providers: FC<ProvidersProps> = ({children}) => {
   useAppState()
   useOnlineManager()
+  useDeviceInfo()
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>

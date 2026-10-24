@@ -1,12 +1,12 @@
 import {Stack} from 'expo-router'
 
-import {useTheme} from '~/core.themes'
+import {useAppTheme} from '~/core.ui'
 
 export default function ProtectedLayout() {
-  const theme = useTheme()
+  const theme = useAppTheme()
 
   return (
-    <Stack screenOptions={{contentStyle: {backgroundColor: theme.colors.background}, headerShown: false}}>
+    <Stack screenOptions={{contentStyle: {backgroundColor: theme.color('surface.base')}, headerShown: false}}>
       <Stack.Screen name="(tabs)" />
     </Stack>
   )

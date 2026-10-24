@@ -1,10 +1,10 @@
 import * as ExpoSplashScreen from 'expo-splash-screen'
 import {FC, useCallback, useState} from 'react'
-import {Easing, runOnJS, useAnimatedStyle, useSharedValue, withDelay, withTiming} from 'react-native-reanimated'
+import {Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming} from 'react-native-reanimated'
+import {scheduleOnRN} from 'react-native-worklets'
 
 import {Logger} from '~/core.services'
-import {duration, useTheme} from '~/core.themes'
-import {AVStack, Image} from '~/core.ui'
+import {Box, duration, Image, useAppTheme} from '~/core.ui'
 
 ExpoSplashScreen.preventAutoHideAsync().catch(Logger.error)
 
@@ -13,8 +13,12 @@ ExpoSplashScreen.setOptions({
   fade: true,
 })
 
+// The hand-off's own choreography: slower and longer than any interface motion, so it is not on the duration scale.
+const SPIN_DELAY = 800
+const SPIN = 1000
+
 export const SplashScreen: FC = () => {
-  const {dark} = useTheme()
+  const {dark} = useAppTheme()
   const [loaded, setLoaded] = useState(false)
   const rotation = useSharedValue(0)
   const scale = useSharedValue(1)
@@ -38,22 +42,22 @@ export const SplashScreen: FC = () => {
 
   const startAnimation = useCallback(() => {
     rotation.value = withDelay(
-      duration.d800,
-      withTiming(360, {duration: duration.d1000, easing: Easing.inOut(Easing.linear)}, finished => {
+      SPIN_DELAY,
+      withTiming(360, {duration: SPIN, easing: Easing.inOut(Easing.linear)}, finished => {
         if (!finished) {
           return
         }
 
-        scale.value = withTiming(20, {duration: duration.d500, easing: Easing.inOut(Easing.linear)}, finished => {
+        scale.value = withTiming(20, {duration: duration.verySlow, easing: Easing.inOut(Easing.linear)}, finished => {
           if (!finished) {
             return
           }
 
-          runOnJS(setLoaded)(true)
+          scheduleOnRN(setLoaded, true)
         })
 
-        opacity.value = withTiming(0, {duration: duration.d400, easing: Easing.linear})
-        opacityBackground.value = withTiming(0, {duration: duration.d450, easing: Easing.linear})
+        opacity.value = withTiming(0, {duration: duration.slow, easing: Easing.linear})
+        opacityBackground.value = withTiming(0, {duration: duration.slow, easing: Easing.linear})
       })
     )
   }, [opacity, opacityBackground, rotation, scale])
@@ -68,19 +72,19 @@ export const SplashScreen: FC = () => {
   }
 
   return (
-    <AVStack
+    <Box
       position="absolute"
-      top="s0"
-      right="s0"
-      left="s0"
-      bottom="s0"
+      top={0}
+      right={0}
+      left={0}
+      bottom={0}
       flex={1}
-      bg="background"
+      bg="surface.base"
       align="center"
       justify="center"
       style={rStyleBackground}
     >
-      <AVStack style={rStyleIcon}>
+      <Box style={rStyleIcon}>
         {!dark && (
           <Image
             source={require('~/core.resources/png/splash-icon-light.png')}
@@ -95,7 +99,7 @@ export const SplashScreen: FC = () => {
             onDisplay={onDisplay}
           />
         )}
-      </AVStack>
-    </AVStack>
+      </Box>
+    </Box>
   )
 }

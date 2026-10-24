@@ -1,0 +1,12 @@
+{
+  "name": "expo-storage",
+  "main": "index.ts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "lint": "yarn run -T concurrently \"yarn biome:check\" \"yarn tsc:check\"",
+    "lint:fix": "yarn run -T biome check --write .",
+    "biome:check": "yarn run -T biome check .",
+    "tsc:check": "yarn run -T tsc --project ./tsconfig.json"
+  }
+}

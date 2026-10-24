@@ -6,7 +6,7 @@ export default function TabLayout() {
 
   return (
     <Tabs>
-      <Tabs.Screen name="index" options={{tabBarIcon: () => ({sfSymbol: 'house'}), title: t('general.home')}} />
+      <Tabs.Screen icon="home" name="index" selectedIcon="home-filled" title={t('general.home')} />
     </Tabs>
   )
 }

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    // Plugins run in Node at prebuild time, not in the app — no platform resolution here.
+    "moduleSuffixes": [""],
+    "types": ["node"]
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}
