@@ -116,6 +116,10 @@ sorted imports and object keys. TypeScript strict, named exports, `type` over `i
 
 The other libraries from the same author are at **[libraries.janblazej.dev](https://www.libraries.janblazej.dev)**.
 
+## Sponsorship
+
+<a href="https://www.buymeacoffee.com/hzblj"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="48"></a>
+
 ## License
 
 MIT.
